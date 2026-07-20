@@ -1,5 +1,6 @@
-package Matheuszin_springboot.controller.exercise;
+package Matheuszin_springboot.Principal.controller;
 
+import Matheuszin_springboot.ExerciciosPratica.domain.Monitor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("v1")
 @Slf4j
-public class Exercise01 {
+public class BenchMarkController {
 
     @GetMapping("monitores")
     public List<Monitor> lista() throws InterruptedException {
