@@ -1,12 +1,14 @@
-package Matheuszin_springboot.Principal.Repository;
+package Matheuszin_springboot.Principal.repository;
 
 import Matheuszin_springboot.Principal.domain.Monitor;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class MonitorHardCodedRepository {
     private static final List<Monitor> MONITORLIST = new ArrayList<>();
 
@@ -15,10 +17,6 @@ public class MonitorHardCodedRepository {
         var lg = new Monitor("LG", 175L, LocalDateTime.now());
         var pichau = new Monitor("Pichau", 240L, LocalDateTime.now());
         MONITORLIST.addAll(List.of(alienware, lg, pichau));
-    }
-
-    public static List<Monitor> getMonitorlist() {
-        return MONITORLIST;
     }
 
     public List<Monitor> findAll() {

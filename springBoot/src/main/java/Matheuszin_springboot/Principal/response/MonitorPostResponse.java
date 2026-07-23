@@ -1,4 +1,4 @@
-package Matheuszin_springboot.Principal.Response;
+package Matheuszin_springboot.Principal.response;
 
 import lombok.Builder;
 import lombok.Getter;
