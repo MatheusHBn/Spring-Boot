@@ -18,7 +18,6 @@ public interface MonitorMapper {
     @Mapping(target = "hertz", expression = "java(java.util.concurrent.ThreadLocalRandom.current().nextLong(540))")
     @Mapping(target = "localDateTime", expression = "java(java.time.LocalDateTime.now())")
     Monitor toMonitor(MonitorPutRequest request);
-
     Monitor toMonitor(MonitorPostRequest monitorPostRequest);
 
     MonitorGetResponse toMonitorGetResponse(Monitor monitor);

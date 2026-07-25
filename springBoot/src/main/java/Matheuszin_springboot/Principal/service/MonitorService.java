@@ -19,7 +19,7 @@ public class MonitorService {
     }
 
     public Monitor findByHertzOrThrowNotFound(Long Hertz) {
-        return REPOSITORY.findByHertz(Hertz).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Producer not found"));
+        return REPOSITORY.findByHertz(Hertz).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Monitor not found"));
     }
 
     public Monitor save(Monitor monitor) {

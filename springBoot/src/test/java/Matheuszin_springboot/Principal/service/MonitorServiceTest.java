@@ -2,6 +2,7 @@ package Matheuszin_springboot.Principal.service;
 
 import Matheuszin_springboot.Principal.domain.Monitor;
 import Matheuszin_springboot.Principal.repository.MonitorHardCodedRepository;
+import Matheuszin_springboot.commons.MonitorUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,16 +27,15 @@ class MonitorServiceTest {
 
     @InjectMocks
     private MonitorService service;
+    @InjectMocks
+    private MonitorUtils monitorUtils;
     @Mock
     private MonitorHardCodedRepository repository;
     private List<Monitor> monitorList;
 
     @BeforeEach
     void init() {
-        var alienware = new Monitor("Alienware", 75L, LocalDateTime.now());
-        var lg = new Monitor("LG", 175L, LocalDateTime.now());
-        var pichau = new Monitor("Pichau", 240L, LocalDateTime.now());
-        monitorList = new ArrayList<>(List.of(alienware, lg, pichau));
+        monitorList = monitorUtils.newMonitorList();
     }
 
 
@@ -96,7 +96,7 @@ class MonitorServiceTest {
     @DisplayName("save creates a monitor")
     @Test
     void save_CreatesMonitor_WhenSuccessful() {
-        var monitorToSave = Monitor.builder().hertz(99L).name("Nubank").localDateTime(LocalDateTime.now()).build();
+        var monitorToSave = monitorUtils.newMonitorToSave();
 
         BDDMockito.when(repository.save(monitorToSave)).thenReturn(monitorToSave);
         var savedmonitor = service.save(monitorToSave);

@@ -1,13 +1,10 @@
 package Matheuszin_springboot.Principal.repository;
 
 import Matheuszin_springboot.Principal.domain.Producer;
-import external.Dependecy.Connection;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +13,6 @@ import java.util.Optional;
 @Log4j2
 public class ProducerHardCodedRepository {
     private final ProducerData producerData;
-
 
     public List<Producer> findAll() {
         return producerData.getProducers();

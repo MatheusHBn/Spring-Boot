@@ -2,6 +2,7 @@ package Matheuszin_springboot.Principal.service;
 
 import Matheuszin_springboot.Principal.domain.Producer;
 import Matheuszin_springboot.Principal.repository.ProducerHardCodedRepository;
+import Matheuszin_springboot.commons.ProducerUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,6 +29,8 @@ class ProducerServiceTest {
     @Mock
     private ProducerHardCodedRepository repository;
 
+    @InjectMocks
+    private ProducerUtils producerUtils;
     private List<Producer> producerList;
 
     @BeforeEach
@@ -96,7 +99,7 @@ class ProducerServiceTest {
     @DisplayName("save creates a producer")
     @Test
     void save_CreatesProducer_WhenSuccessful() {
-        var producerToSave = Producer.builder().id(99L).name("Nubank").localDateTime(LocalDateTime.now()).build();
+        var producerToSave = producerUtils.newProducerToSave();
 
         BDDMockito.when(repository.save(producerToSave)).thenReturn(producerToSave);
         var savedProducer = service.save(producerToSave);

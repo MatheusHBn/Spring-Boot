@@ -1,6 +1,7 @@
 package Matheuszin_springboot.Principal.repository;
 
 import Matheuszin_springboot.Principal.domain.Producer;
+import Matheuszin_springboot.commons.ProducerUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,6 +9,7 @@ import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,13 +24,13 @@ class ProducerHardCodedRepositoryTest {
     @Mock
     private ProducerData producerData;
     private List<Producer> producerList = new ArrayList<>();
+    @InjectMocks
+    private ProducerUtils producerUtils;
 
     @BeforeEach
     void init(){
-        var nubank = new Producer("Nubank", 1L, LocalDateTime.now());
-        var itau = new Producer("Itaú", 2L, LocalDateTime.now());
-        var c6Bank = new Producer("C6 Bank", 3L, LocalDateTime.now());
-        producerList.addAll(List.of(nubank, itau, c6Bank));
+
+        producerList = producerUtils.newProducerList();
     }
 
     @Order(1)

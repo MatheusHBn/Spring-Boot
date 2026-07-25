@@ -1,14 +1,16 @@
 package Matheuszin_springboot.Principal.repository;
 
 import Matheuszin_springboot.Principal.domain.Monitor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class MonitorHardCodedRepository {
-    private MonitorData monitorData;
+    private final MonitorData monitorData;
 
     public List<Monitor> findAll() {
         return monitorData.getMonitorList();
