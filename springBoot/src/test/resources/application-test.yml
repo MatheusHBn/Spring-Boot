@@ -1,0 +1,4 @@
+database:
+    url: localhost:1234
+    password: test
+    username: test

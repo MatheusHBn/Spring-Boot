@@ -1,0 +1,4 @@
+database:
+    url: ${DB-URL:localhost}:${DB_PORT:3306}
+    password: ${LOCAL_USERNAME}
+    username: ${LOCAL_PASSWORD}

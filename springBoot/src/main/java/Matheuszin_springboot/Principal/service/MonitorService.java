@@ -3,9 +3,7 @@ package Matheuszin_springboot.Principal.service;
 import Matheuszin_springboot.Principal.domain.Monitor;
 import Matheuszin_springboot.Principal.repository.MonitorHardCodedRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -19,7 +17,7 @@ public class MonitorService {
     }
 
     public Monitor findByHertzOrThrowNotFound(Long Hertz) {
-        return REPOSITORY.findByHertz(Hertz).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Monitor not found"));
+        return REPOSITORY.findByHertz(Hertz).orElseThrow(() -> new Matheuszin_springboot.exception.NotFoundException("Monitor not found"));
     }
 
     public Monitor save(Monitor monitor) {

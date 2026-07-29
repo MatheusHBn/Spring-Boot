@@ -5,7 +5,7 @@ import Matheuszin_springboot.Principal.request.ProducerPostRequest;
 import Matheuszin_springboot.Principal.request.ProducerPutRequest;
 import Matheuszin_springboot.Principal.response.ProducerGetResponse;
 import Matheuszin_springboot.Principal.service.ProducerService;
-import external.Dependecy.Connection;
+import Matheuszin_springboot.Principal.config.Connection;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -23,7 +23,7 @@ import java.util.List;
 public class ProducerController {
     private final ProducerMapper mapper;
     private final ProducerService service;
-    private final Connection connection;
+//    private final Connection connection;
 
     @GetMapping("list")
     public ResponseEntity<List<ProducerGetResponse>> findAll(@RequestParam(required = false) String name) {

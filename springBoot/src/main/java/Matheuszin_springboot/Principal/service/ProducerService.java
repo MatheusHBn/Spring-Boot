@@ -3,9 +3,7 @@ package Matheuszin_springboot.Principal.service;
 import Matheuszin_springboot.Principal.domain.Producer;
 import Matheuszin_springboot.Principal.repository.ProducerHardCodedRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -19,7 +17,7 @@ public class ProducerService {
     }
 
     public Producer findByIdOrThrowNotFound(Long id) {
-        return REPOSITORY.findByID(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Producer not found"));
+        return REPOSITORY.findByID(id).orElseThrow(() -> new Matheuszin_springboot.exception.NotFoundException("Producer not found"));
     }
 
     public Producer save(Producer producer) {

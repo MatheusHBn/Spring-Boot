@@ -2,6 +2,7 @@ package Matheuszin_springboot.Principal.repository;
 
 import Matheuszin_springboot.Principal.domain.Monitor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

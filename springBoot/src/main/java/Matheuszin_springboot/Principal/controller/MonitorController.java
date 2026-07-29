@@ -55,4 +55,6 @@ public class MonitorController {
         service.update(updateMonitor);
         return ResponseEntity.noContent().build();
     }
+
+
 }

@@ -1,5 +1,6 @@
 package Matheuszin_springboot.Principal.request;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -9,12 +10,12 @@ import lombok.*;
 @Setter
 @Getter
 @Builder
-public class ProducerPutRequest {
-
-    @NotBlank(message = "this field is required")
-    private String name;
+public class UserPutRequest {
+    @NotBlank(message = "the field 'id' is required" )
     @NotNull
-    @NotBlank(message = "this field is required")
     private Long id;
-
+    private String firstName;
+    private String lastName;
+    @Email()
+    private String email;
 }

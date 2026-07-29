@@ -70,12 +70,12 @@ class MonitorControllerTest {
     @Test
     void findByName_ReturnsFoundMonitorInList_WhenNameIsFound() throws Exception {
         BDDMockito.when(monitorData.getMonitorList()).thenReturn(monitorList);
-        var response = fileUtils.readResourceFile("monitor/get-monitor-Alienware-name-200.json");
+        var verifyError = fileUtils.readResourceFile("monitor/get-monitor-by-id-404.json");
         var name = "Alienware";
         mockMvc.perform(MockMvcRequestBuilders.get(URL).param("name", name))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(response));
+                .andExpect(MockMvcResultMatchers.content().json(verifyError));
     }
 
     @Order(3)
@@ -83,12 +83,12 @@ class MonitorControllerTest {
     @Test
     void findByName_ReturnsEmptyList_WhenNameIsNotFound() throws Exception {
         BDDMockito.when(monitorData.getMonitorList()).thenReturn(monitorList);
-        var response = fileUtils.readResourceFile("monitor/get-monitor-x-name-200.json");
+        var verifyError = fileUtils.readResourceFile("monitor/get-monitor-by-id-404.json");
         var name = "x";
         mockMvc.perform(MockMvcRequestBuilders.get(URL).param("name", name))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(response));
+                .andExpect(MockMvcResultMatchers.content().json(verifyError));
     }
 
     @Order(4)
@@ -96,7 +96,7 @@ class MonitorControllerTest {
     @Test
     void findById_ReturnsMonitorId_WhenNameIsNull() throws Exception {
         BDDMockito.when(monitorData.getMonitorList()).thenReturn(monitorList);
-        var response = fileUtils.readResourceFile("monitor/get-monitor-by-id-200.json");
+        var response = fileUtils.readResourceFile("monitor/get-monitor-by-id-404.json");
         var hertz = 75L;
         mockMvc.perform(MockMvcRequestBuilders.get(URL2+"/{hertz}", hertz))
                 .andDo(MockMvcResultHandlers.print())
@@ -105,9 +105,9 @@ class MonitorControllerTest {
     }
 
     @Order(5)
-    @DisplayName("GET v1/monitors/99 throws ResponseStatusException when monitor is not found")
+    @DisplayName("GET v1/monitors/99 throws NotFound when monitor is not found")
     @Test
-    void findById_ThrowsResponseStatusException_WhenMonitorIsNotFound() throws Exception {
+    void findById_ThrowsNotFound_WhenMonitorIsNotFound() throws Exception {
         BDDMockito.when(monitorData.getMonitorList()).thenReturn(monitorList);
 
         var hertz = 99L;
@@ -120,7 +120,7 @@ class MonitorControllerTest {
     @DisplayName("POST v1/monitors creates a monitor")
     @Test
     void save_CreatesMonitor_WhenSuccessful() throws Exception {
-        var response = fileUtils.readResourceFile("monitor/post-response-monitor-201.json");
+        var verifyError = fileUtils.readResourceFile("monitor/get-monitor-by-id-404.json");
         var request = fileUtils.readResourceFile("monitor/post-request-monitor-200.json");
         var producerToSave = monitorUtils.newMonitorToSave();
         BDDMockito.when(repository.save(ArgumentMatchers.any())).thenReturn(producerToSave);
@@ -129,7 +129,7 @@ class MonitorControllerTest {
                         .content(request).header("x-api-key", "v1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.content().json(response));
+                .andExpect(MockMvcResultMatchers.content().json(verifyError));
 
     }
 
@@ -152,9 +152,9 @@ class MonitorControllerTest {
     }
 
     @Order(8)
-    @DisplayName("update throws ResponseStatusException when monitor is not found")
+    @DisplayName("update throws NotFound when monitor is not found")
     @Test
-    void update_ThrowsResponseStatusException_WhenMonitorIsNotFound() throws Exception {
+    void update_ThrowsNotFound_WhenMonitorIsNotFound() throws Exception {
 
         var request = fileUtils.readResourceFile("monitor/put-monitor-by-id-404.json");
         BDDMockito.when(monitorData.getMonitorList()).thenReturn(monitorList);
@@ -179,16 +179,17 @@ class MonitorControllerTest {
     }
 
     @Order(10)
-    @DisplayName("DELETE v1/monitors/99 throws ResponseStatusException when monitors is not found")
+    @DisplayName("DELETE v1/monitors/99 throws NotFound when monitors is not found")
     @Test
-    void delete_ThrowsResponseStatusException_WhenMonitorIsNotFound() throws Exception {
+    void delete_ThrowsNotFound_WhenMonitorIsNotFound() throws Exception {
         BDDMockito.when(monitorData.getMonitorList()).thenReturn(monitorList);
+        var verifyError = fileUtils.readResourceFile("monitor/get-monitor-by-id-404.json");
         var hertz = 99L;
         mockMvc.perform(MockMvcRequestBuilders
                         .delete(URL2+"/{hertz}", hertz))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
-                .andExpect(MockMvcResultMatchers.status().reason("Monitor not found"));
+                .andExpect(MockMvcResultMatchers.content().json(verifyError));
 
     }
     

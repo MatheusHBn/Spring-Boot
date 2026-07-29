@@ -9,6 +9,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
+        <module>commons-coree</module>
 		<module>springBoot</module>
-	</modules>
+    </modules>
 </project>
