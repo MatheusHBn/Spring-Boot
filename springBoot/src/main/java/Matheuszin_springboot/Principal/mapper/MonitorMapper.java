@@ -12,7 +12,7 @@ import org.mapstruct.MappingConstants;
 import java.util.List;
 
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(componentModel = "spring")
 public interface MonitorMapper {
 
     @Mapping(target = "hertz", expression = "java(java.util.concurrent.ThreadLocalRandom.current().nextLong(540))")

@@ -11,5 +11,6 @@
 	<modules>
         <module>commons-coree</module>
 		<module>springBoot</module>
+		<module>user-service/user-service</module>
     </modules>
 </project>

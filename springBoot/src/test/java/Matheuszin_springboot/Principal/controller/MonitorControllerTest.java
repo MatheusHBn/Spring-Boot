@@ -1,8 +1,14 @@
 package Matheuszin_springboot.Principal.controller;
 
 import Matheuszin_springboot.Principal.domain.Monitor;
+import Matheuszin_springboot.Principal.mapper.MonitorMapperImpl;
+import Matheuszin_springboot.Principal.mapper.ProducerMapperImpl;
 import Matheuszin_springboot.Principal.repository.MonitorData;
 import Matheuszin_springboot.Principal.repository.MonitorHardCodedRepository;
+import Matheuszin_springboot.Principal.repository.ProducerData;
+import Matheuszin_springboot.Principal.repository.ProducerHardCodedRepository;
+import Matheuszin_springboot.Principal.service.MonitorService;
+import Matheuszin_springboot.Principal.service.ProducerService;
 import Matheuszin_springboot.commons.FileUtils;
 import Matheuszin_springboot.commons.MonitorUtils;
 import lombok.SneakyThrows;
@@ -11,7 +17,10 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -28,17 +37,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@WebMvcTest(controllers = MonitorController.class)
-//@Import({ProducerMapperImpl.class, ProducerService.class, ProducerHardCodedRepository.class, ProducerData.class})
+@SpringBootTest
+@AutoConfigureMockMvc
+@Import({ProducerMapperImpl.class, ProducerService.class, ProducerHardCodedRepository.class, ProducerData.class})
 class MonitorControllerTest {
     @Autowired
     private MockMvc mockMvc;
     private static final String URL = "/v1/monitors/list";
     private static final String URL2 = "/v1/monitors";
 
+    @MockitoBean
+    private MonitorService service;
+
     @Autowired
     private FileUtils fileUtils;
-    @MockitoSpyBean
+    @MockitoBean
     private MonitorHardCodedRepository repository;
     @Autowired
     private ResourceLoader resourceLoader;

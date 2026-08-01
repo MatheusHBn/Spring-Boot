@@ -11,8 +11,10 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
@@ -29,9 +31,10 @@ import java.util.List;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @WebMvcTest(controllers = ProducerController.class)
+@ComponentScan(basePackages = {"Matheuszin_springboot"})
 class ProducerControllerTest {
-    private static final String URL = "/v1/producers/list";
-    private static final String URL2 = "/v1/producers";
+    private static final String URL = "v1/producers/list";
+    private static final String URL2 = "v1/producers";
 
     @Autowired
     private MockMvc mockMvc;
@@ -114,6 +117,7 @@ class ProducerControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
                 .andExpect(MockMvcResultMatchers.content().json(verifyError));
     }
+
     @Order(6)
     @DisplayName("POST v1/producers creates a producer")
     @Test

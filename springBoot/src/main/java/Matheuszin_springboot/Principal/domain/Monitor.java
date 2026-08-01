@@ -1,9 +1,8 @@
 package Matheuszin_springboot.Principal.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,9 +10,12 @@ import java.util.List;
 @Builder
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Entity
 public class Monitor {
     private String name;
     @EqualsAndHashCode.Include
+    @Id
     private Long hertz;
     private LocalDateTime localDateTime;
 

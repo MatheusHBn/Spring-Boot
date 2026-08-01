@@ -11,7 +11,7 @@ import org.mapstruct.MappingConstants;
 import java.util.List;
 
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(componentModel = "spring")
 public interface ProducerMapper {
 
     @Mapping(target = "localDateTime", expression = "java(java.time.LocalDateTime.now())")

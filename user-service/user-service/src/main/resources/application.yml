@@ -1,8 +1,10 @@
 spring:
-  profiles:
-    active:
   application:
-    name: springBoot
+    name: user-service
+  threads:
+    virtual:
+      enabled: true
+
   datasource:
     url: jdbc:mysql://localhost:3306/root?useTimezone=true&serverTimezone=UTC&createDatabaseIfNotExist=true
     username: ${ENV_ROOT_USER:root}
@@ -13,14 +15,15 @@ spring:
       ddl-auto: update
   config:
     import: optional:classpath:.env[.properties]
-  therads:
-    virtual:
-      enabled: true
+
+logging:
+  level:
+    com.Matheuszin: debug
 server:
+  port: 8090
   servlet:
     context-path: /
-  error:
-    include-stracktrace: on_param
+
   tomcat:
     threads:
       max: 20
