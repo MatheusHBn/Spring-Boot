@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: springBoot
+  therads:
+    virtual:
+      enabled: true
+server:
+  servlet:
+    context-path: /
+  error:
+    include-stracktrace: on_param
+  tomcat:
+    threads:
+      max: 20
