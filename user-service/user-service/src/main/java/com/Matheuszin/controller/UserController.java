@@ -1,5 +1,6 @@
 package com.Matheuszin.controller;
 
+import com.Matheuszin.domain.User;
 import com.Matheuszin.mapper.UserMapper;
 import com.Matheuszin.request.UserPostRequest;
 import com.Matheuszin.request.UserPutRequest;
@@ -9,6 +10,8 @@ import com.Matheuszin.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -37,6 +40,13 @@ public class UserController {
         var user = service.findByIdOrThrowNotFound(id);
         var userGetResponse = mapper.toUserGetResponse(user);
         return ResponseEntity.ok(userGetResponse);
+    }
+
+    @GetMapping("/paginated")
+    public ResponseEntity<Page<User>> findAllPaginated(Pageable pageable) {
+        var pageUser = service.findAllPaged(pageable);
+        return ResponseEntity.ok(pageUser);
+
     }
 
     @PostMapping()

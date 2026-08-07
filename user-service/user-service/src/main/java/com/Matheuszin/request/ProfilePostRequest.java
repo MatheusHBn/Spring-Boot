@@ -1,6 +1,5 @@
 package com.Matheuszin.request;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,12 +8,10 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class UserPostRequest {
+public class ProfilePostRequest {
     @NotBlank(message = "the field is required")
-    private String firstName;
+    private String name;
     @NotBlank(message = "the field is required")
-    private String lastName;
-    @Email(message = "email is not valid")
-    @NotBlank(message = "the field is required")
-    private String email;
+    private String description;
+
 }

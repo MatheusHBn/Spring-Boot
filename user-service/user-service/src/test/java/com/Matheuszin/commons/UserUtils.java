@@ -17,6 +17,14 @@ public class UserUtils {
     }
 
     public User newUserToSave() {
-        return User.builder().id(99L).firstName("Thiago").lastName("Nascimento").email("thiagozaozao@outlook.com").build();
+        return User.builder().id(34L).firstName("Thiago").lastName("Nascimento").email("thiagozaozao@outlook.com").build();
+    }
+
+    public User newUserSaved() {
+        return User.builder().id(34L).firstName("Thiago").lastName("Nascimento").email("thiagozaozao@outlook.com").build();
+    }
+
+    public User newUserToSaveDB() {
+        return User.builder().firstName("João").lastName("Silva").email("joao4@outlook.com").build();
     }
 }

@@ -2,7 +2,7 @@ package com.Matheuszin.service;
 
 import com.Matheuszin.commons.UserUtils;
 import com.Matheuszin.domain.User;
-import com.Matheuszin.repository.UserHardCodedRepository;
+import com.Matheuszin.repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,6 +11,10 @@ import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -26,7 +30,7 @@ class UserServiceTest {
     @InjectMocks
     private UserService service;
     @Mock
-    private UserHardCodedRepository repository;
+    private UserRepository repository;
 
     @InjectMocks
     private UserUtils userUtils;
@@ -45,8 +49,22 @@ class UserServiceTest {
 
         var users = service.findAll(null);
 
-        org.assertj.core.api.Assertions.assertThat(users).isNotNull().hasSize(users.size());
+        Assertions.assertThat(users).isNotNull().hasSize(users.size());
 
+    }
+
+    @Order(1)
+    @DisplayName("GET v1/users/paginated should returns a paginated list with all users, when name is null")
+    @Test
+    void findAllPaginated_ReturnsAllUsers_WhenSuccessful(){
+        var pageRequest = PageRequest.of(0, userList.size());
+        PageImpl<User> pageUser = new PageImpl<>(userList, pageRequest, 1);
+
+        BDDMockito.when(repository.findAll(BDDMockito.any(Pageable.class))).thenReturn(pageUser);
+
+        Page<User> userFound = service.findAllPaged(pageRequest);
+
+        Assertions.assertThat(userFound).isNotNull().hasSameElementsAs(userList);
     }
 
     @Order(2)
@@ -55,7 +73,7 @@ class UserServiceTest {
     void findByName_ReturnsAllUsers_WhenFirstNameIsNull() {
         var user = userList.getFirst();
         var expectedUsersFound = singletonList(user);
-        BDDMockito.when(repository.findByFirstName(user.getFirstName())).thenReturn(expectedUsersFound);
+        BDDMockito.when(repository.findByFirstNameIgnoreCase(user.getFirstName())).thenReturn(expectedUsersFound);
         var usersFound = service.findAll(user.getFirstName());
         Assertions.assertThat(usersFound).containsAll(expectedUsersFound);
 
@@ -66,10 +84,11 @@ class UserServiceTest {
     @Test
     void findByName_ReturnsEmptyListUser_WhenFirstNameIsNotFound() {
         var firstName = "not-found";
-        BDDMockito.when(repository.findByFirstName(firstName)).thenReturn(emptyList());
+        BDDMockito.when(repository.findByFirstNameIgnoreCase(firstName)).thenReturn(emptyList());
         var users = service.findAll(firstName);
         Assertions.assertThat(users).isNotNull().isEmpty();
     }
+
     @Order(4)
     @DisplayName("findById returns user id when name is null")
     @Test
@@ -130,7 +149,7 @@ class UserServiceTest {
         userToUpdate.setFirstName("Matheus");
 
         BDDMockito.when(repository.findById(userToUpdate.getId())).thenReturn(Optional.of(userToUpdate));
-        BDDMockito.doNothing().when(repository).update(userToUpdate);
+        BDDMockito.when(repository.save(userToUpdate)).thenReturn(userToUpdate);
 
         Assertions.assertThatNoException().isThrownBy(() -> service.update(userToUpdate));
 

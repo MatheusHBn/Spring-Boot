@@ -1,0 +1,12 @@
+[
+  {
+    "description": "Admin can admins everything",
+    "name": "Admin",
+    "id": 1
+  },
+  {
+    "description": "Manager can manages users",
+    "name": "Manager",
+    "id": 2
+  }
+]
