@@ -1,4 +1,4 @@
-package Matheuszin_springboot.controller.exercise02.domain;
+package Matheuszin_springboot.Principal.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
