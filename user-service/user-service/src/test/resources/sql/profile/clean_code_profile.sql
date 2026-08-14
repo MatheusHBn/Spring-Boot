@@ -1,0 +1,1 @@
+DELETE FROM user where 1=1;

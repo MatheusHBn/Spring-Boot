@@ -1,25 +1,23 @@
 package com.Matheuszin.repository;
 
 import com.Matheuszin.commons.UserUtils;
+import com.Matheuszin.config.IntegrationTestConfig;
+import com.Matheuszin.config.TestContainersConfiguration;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
-import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Import(UserUtils.class)
+@Import({UserUtils.class, TestContainersConfiguration.class})
+@ActiveProfiles("itest")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-
-class UserRepositoryTest {
+class UserRepositoryTest extends IntegrationTestConfig {
     @Autowired
     private UserRepository repository;
     @Autowired
@@ -38,7 +36,7 @@ class UserRepositoryTest {
     @Order(2)
     @DisplayName("findAll returns a list with all users")
     @Test
-    @Sql("/sql/init_one_user.sql")
+    @Sql("/sql/user/init_one_user.sql")
     void findAll_ReturnsAllUsers_WhenSuccessful() {
         var users = repository.findAll();
         Assertions.assertThat(users).isNotEmpty();

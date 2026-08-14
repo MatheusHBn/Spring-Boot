@@ -1,12 +1,1 @@
-[
-  {
-    "description": "Admin can admins everything",
-    "name": "Admin",
-    "id": 1
-  },
-  {
-    "description": "Manager can manages users",
-    "name": "Manager",
-    "id": 2
-  }
-]
+[{"id":1,"name":"Admin","description":"Admin can admins everything"},{"id":2,"name":"Manager","description":"Manager can manages users"}]

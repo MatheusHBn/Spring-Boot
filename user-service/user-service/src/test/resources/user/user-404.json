@@ -1,0 +1,6 @@
+{
+  "timestamp": "2026-08-14T00:52:09.026Z",
+  "error": "Bad Request",
+  "status": 400,
+  "path": "/v1/users"
+}
