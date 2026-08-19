@@ -1,39 +1,39 @@
 package Matheuszin_springboot.Principal.service;
 
-import Matheuszin_springboot.Principal.Repository.ProducerHardCodedRepository;
 import Matheuszin_springboot.Principal.domain.Producer;
+import Matheuszin_springboot.Principal.repository.ProducerHardCodedRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@RequiredArgsConstructor
+@Service
 public class ProducerService {
-    private ProducerHardCodedRepository repository;
+    private final ProducerHardCodedRepository REPOSITORY;
 
-    public ProducerService() {
-        this.repository = new ProducerHardCodedRepository();
+    public List<Producer> findAll(String name) {
+        return name == null ? REPOSITORY.findAll() : REPOSITORY.findByName(name);
     }
 
-    public List<Producer> findAll(String name){
-        return name == null ? repository.findAll() : repository.findByName(name);
+    public Producer findByIdOrThrowNotFound(Long id) {
+        return REPOSITORY.findByID(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Producer not found"));
     }
 
-    public Producer findByIdOrThrowNotFound(Long id){
-        return repository.findByID(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Producer not found"));
+    public Producer save(Producer producer) {
+        return REPOSITORY.save(producer);
     }
 
-    public Producer save(Producer producer){
-        return repository.save(producer);
-    }
-
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         var producer = findByIdOrThrowNotFound(id);
-        repository.deleteById(producer);
+        REPOSITORY.deleteById(producer);
     }
 
-    public void update(Producer producerToUpdate){
+    public void update(Producer producerToUpdate) {
         var producer = findByIdOrThrowNotFound(producerToUpdate.getId());
         producerToUpdate.setLocalDateTime(producer.getLocalDateTime());
-        repository.update(producerToUpdate);
+        REPOSITORY.update(producerToUpdate);
     }
 }

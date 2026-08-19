@@ -2,8 +2,6 @@ package Matheuszin_springboot.Principal.request;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
