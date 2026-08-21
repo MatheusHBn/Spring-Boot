@@ -28,9 +28,9 @@ public class MonitorController {
         return ResponseEntity.ok(monitorGetResponse);
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<MonitorGetResponse> findById(@PathVariable Long id) {
-        var monitor = service.findByIdOrThrowNotFound(id);
+    @GetMapping("{Hertz}")
+    public ResponseEntity<MonitorGetResponse> findByHertz(@PathVariable Long Hertz) {
+        var monitor = service.findByHertzOrThrowNotFound(Hertz);
         var monitorGetResponse = mapper.toMonitorGetResponse(monitor);
         return ResponseEntity.ok(monitorGetResponse);
     }
@@ -44,8 +44,8 @@ public class MonitorController {
     }
 
     @DeleteMapping("{hertz}")
-    public ResponseEntity<Void> deleteById(@PathVariable Long hertz) {
-        service.deleteById(hertz);
+    public ResponseEntity<Void> deleteByHertz(@PathVariable Long hertz) {
+        service.deleteByHertz(hertz);
         return ResponseEntity.noContent().build();
     }
 

@@ -18,22 +18,22 @@ public class MonitorService {
         return name == null ? REPOSITORY.findAll() : REPOSITORY.findByName(name);
     }
 
-    public Monitor findByIdOrThrowNotFound(Long id) {
-        return REPOSITORY.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Producer not found"));
+    public Monitor findByHertzOrThrowNotFound(Long Hertz) {
+        return REPOSITORY.findByHertz(Hertz).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Producer not found"));
     }
 
     public Monitor save(Monitor monitor) {
         return REPOSITORY.save(monitor);
     }
 
-    public void deleteById(Long id) {
-        var monitor = findByIdOrThrowNotFound(id);
-        REPOSITORY.deleteById(monitor);
+    public void deleteByHertz(Long Hertz) {
+        var monitor = findByHertzOrThrowNotFound(Hertz);
+        REPOSITORY.deleteByHertz(monitor);
     }
 
     public void update(Monitor monitorToUpdate) {
-        var monitor = findByIdOrThrowNotFound(monitorToUpdate.getHertz());
+        var monitor = findByHertzOrThrowNotFound(monitorToUpdate.getHertz());
         monitorToUpdate.setLocalDateTime(monitor.getLocalDateTime());
-        REPOSITORY.updateById(monitorToUpdate);
+        REPOSITORY.updateByHertz(monitorToUpdate);
     }
 }

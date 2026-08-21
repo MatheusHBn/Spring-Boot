@@ -26,7 +26,7 @@ public class ProducerController {
     private final Connection connection;
 
     @GetMapping("list")
-    public ResponseEntity<List<ProducerGetResponse>> listAllProducers(@RequestParam(required = false) String name) {
+    public ResponseEntity<List<ProducerGetResponse>> findAll(@RequestParam(required = false) String name) {
         var producers = service.findAll(name);
         var producerGetResponses = mapper.toProducerGetResponseList(producers);
         return ResponseEntity.ok(producerGetResponses);
